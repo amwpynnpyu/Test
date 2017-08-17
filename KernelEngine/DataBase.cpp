@@ -8,7 +8,7 @@
 #include "DataBase.h"
 
 //////////////////////////////////////////////////////////////////////////
-
+//fdgs
 //∫Í∂®“Â
 _COM_SMARTPTR_TYPEDEF(IADORecordBinding, __uuidof(IADORecordBinding));
 
