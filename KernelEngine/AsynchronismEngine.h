@@ -10,7 +10,7 @@
 
 #include "KernelEngineHead.h"
 
-//类说明
+//类说明...
 class CAsynchronismEngine;
 typedef class CWHArray<IAsynchronismEngineSink *> CAsynchronismEngineSinkArray;
 
