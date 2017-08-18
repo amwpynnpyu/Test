@@ -1,13 +1,13 @@
 /////////////////////////////////////////////////////////////////////////
-/////      ±¾³ÌĞòÓÉÓ£»¨²İÓ£»¨²İ¡¢µÄ¿á  QQ£º412069412 ·ÖÏí                  //
-/////            QQÈº£º16886186 Ò»Â··¢ ·¢¿© Òª·¢¿©                         //
+/////      æœ¬ç¨‹åºç”±æ¨±èŠ±è‰æ¨±èŠ±è‰ã€çš„é…·  QQï¼š412069412 åˆ†äº«                  //
+/////            QQç¾¤ï¼š16886186 ä¸€è·¯å‘ å‘å’¯ è¦å‘å’¯                         //
 ////////////////////////////////////////////////////////////////////////
 #ifndef DATA_BASE_ENGINE_HEAD_FILE
 #define DATA_BASE_ENGINE_HEAD_FILE
 
 #pragma once
 
-//×é¼şÍ·ÎÄ¼ş
+//ç»„ä»¶å¤´æ–‡ä»¶
 #include "KernelEngineHead.h"
 #include "QueueService.h"
 #include "TraceService.h"
@@ -18,263 +18,263 @@ using namespace std;
 //abcddddddddddddd
 //////////////////////////////////////////////////////////////////////////
 
-//ADO ´íÎóÀà
+//ADO é”™è¯¯ç±»iiii
 class CADOError : public IDataBaseException
 {
-	//±äÁ¿¶¨Òå
+	//å˜é‡å®šä¹‰
 protected:
-	enSQLException					m_enErrorType;						//´íÎó´úºÅ
-	CString							m_strErrorDescribe;					//´íÎóĞÅÏ¢
+	enSQLException					m_enErrorType;						//é”™è¯¯ä»£å·
+	CString							m_strErrorDescribe;					//é”™è¯¯ä¿¡æ¯
 
-	//º¯Êı¶¨Òå
+	//å‡½æ•°å®šä¹‰
 public:
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	CADOError();
-	//Îö¹¹º¯Êı
+	//ææ„å‡½æ•°
 	virtual ~CADOError();
 
-	//»ù´¡½Ó¿Ú
+	//åŸºç¡€æ¥å£
 public:
-	//ÊÍ·Å¶ÔÏó
+	//é‡Šæ”¾å¯¹è±¡
 	virtual VOID  Release()
 	{
 		return /*true*/;
 	}
-	//ÊÇ·ñÓĞĞ§
+	//æ˜¯å¦æœ‰æ•ˆ
 	virtual bool  IsValid()
 	{
 		return AfxIsValidAddress(this, sizeof(CADOError)) ? true : false;
 	}
-	//½Ó¿Ú²éÑ¯
+	//æ¥å£æŸ¥è¯¢
 	virtual void *  QueryInterface(const IID & Guid, DWORD dwQueryVer);
 
-	//¹¦ÄÜ½Ó¿Ú
+	//åŠŸèƒ½æ¥å£
 public:
-	//´íÎóÀàĞÍ
+	//é”™è¯¯ç±»å‹
 	virtual enSQLException  GetExceptionType()
 	{
 		return m_enErrorType;
 	}
-	//´íÎóÃèÊö
+	//é”™è¯¯æè¿°
 	virtual LPCTSTR  GetExceptionDescribe()
 	{
 		return m_strErrorDescribe;
 	}
-	//Òì³£´úÂë
+	//å¼‚å¸¸ä»£ç 
 	virtual HRESULT  GetExceptionResult()
 	{
 		return (HRESULT)0;    //
 	}
 
-	//¹¦ÄÜº¯Êı
+	//åŠŸèƒ½å‡½æ•°
 public:
-	//ÉèÖÃ´íÎó
+	//è®¾ç½®é”™è¯¯
 	void SetErrorInfo(enSQLException enErrorType, LPCTSTR pszDescribe);
 };
 
 //////////////////////////////////////////////////////////////////////////
 
-//Êı¾İ¿â¶ÔÏó
+//æ•°æ®åº“å¯¹è±¡
 class CDataBase : public IDataBase
 {
-	//ĞÅÏ¢±äÁ¿
+	//ä¿¡æ¯å˜é‡
 protected:
-	CADOError						m_ADOError;							//´íÎó¶ÔÏó
-	CString							m_strConnect;						//Á¬½Ó×Ö·û´®
-	CString							m_strErrorDescribe;					//´íÎóĞÅÏ¢
+	CADOError						m_ADOError;							//é”™è¯¯å¯¹è±¡
+	CString							m_strConnect;						//è¿æ¥å­—ç¬¦ä¸²
+	CString							m_strErrorDescribe;					//é”™è¯¯ä¿¡æ¯
 
-	//×´Ì¬±äÁ¿
+	//çŠ¶æ€å˜é‡
 protected:
-	DWORD							m_dwConnectCount;					//ÖØÊÔ´ÎÊı
-	DWORD							m_dwConnectErrorTime;				//´íÎóÊ±¼ä
-	const DWORD						m_dwResumeConnectCount;				//»Ö¸´´ÎÊı
-	const DWORD						m_dwResumeConnectTime;				//»Ö¸´Ê±¼ä
+	DWORD							m_dwConnectCount;					//é‡è¯•æ¬¡æ•°
+	DWORD							m_dwConnectErrorTime;				//é”™è¯¯æ—¶é—´
+	const DWORD						m_dwResumeConnectCount;				//æ¢å¤æ¬¡æ•°
+	const DWORD						m_dwResumeConnectTime;				//æ¢å¤æ—¶é—´
 
-	//ÄÚºË±äÁ¿
+	//å†…æ ¸å˜é‡
 protected:
-	_CommandPtr						m_DBCommand;						//ÃüÁî¶ÔÏó
-	_RecordsetPtr					m_DBRecordset;						//¼ÇÂ¼¼¯¶ÔÏó
-	_ConnectionPtr					m_DBConnection;						//Êı¾İ¿â¶ÔÏó
+	_CommandPtr						m_DBCommand;						//å‘½ä»¤å¯¹è±¡
+	_RecordsetPtr					m_DBRecordset;						//è®°å½•é›†å¯¹è±¡
+	_ConnectionPtr					m_DBConnection;						//æ•°æ®åº“å¯¹è±¡
 
-	//º¯Êı¶¨Òå
+	//å‡½æ•°å®šä¹‰
 public:
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	CDataBase();
-	//Îö¹¹º¯Êı
+	//ææ„å‡½æ•°
 	virtual ~CDataBase();
 
-	//»ù´¡½Ó¿Ú
+	//åŸºç¡€æ¥å£
 public:
-	//ÊÍ·Å¶ÔÏó
+	//é‡Šæ”¾å¯¹è±¡
 	virtual VOID  Release()
 	{
 		if (IsValid()) delete this;
 		return /*true*/;
 	}
-	//ÊÇ·ñÓĞĞ§
+	//æ˜¯å¦æœ‰æ•ˆ
 	virtual bool  IsValid()
 	{
 		return AfxIsValidAddress(this, sizeof(CDataBase)) ? true : false;
 	}
-	//½Ó¿Ú²éÑ¯
+	//æ¥å£æŸ¥è¯¢
 	virtual void *  QueryInterface(const IID & Guid, DWORD dwQueryVer);
 
-	//¹ÜÀí½Ó¿Ú
+	//ç®¡ç†æ¥å£
 public:
-	//´ò¿ªÁ¬½Ó
+	//æ‰“å¼€è¿æ¥
 	virtual VOID  OpenConnection();
-	//¹Ø±Õ¼ÇÂ¼
+	//å…³é—­è®°å½•
 	virtual VOID  CloseRecordset();
-	//¹Ø±ÕÁ¬½Ó
+	//å…³é—­è¿æ¥
 	virtual VOID  CloseConnection();
-	//ÖØĞÂÁ¬½Ó
+	//é‡æ–°è¿æ¥
 	virtual bool  TryConnectAgain(bool bFocusConnect, CComError * pComError);
-	//Á¬½ÓĞÅÏ¢
+	//è¿æ¥ä¿¡æ¯
 	virtual bool  SetConnectionInfo(DWORD dwDBAddr, WORD wPort, LPCTSTR szDBName, LPCTSTR szUser, LPCTSTR szPassword);
-	//ÉèÖÃĞÅÏ¢
+	//è®¾ç½®ä¿¡æ¯
 	virtual bool  SetConnectionInfo(LPCTSTR szDBAddr, WORD wPort, LPCTSTR szDBName, LPCTSTR szUser, LPCTSTR szPassword);
-	//ÇĞ»»¼ÇÂ¼
+	//åˆ‡æ¢è®°å½•
 	virtual VOID  NextRecordset();
 
-	//×´Ì¬½Ó¿Ú
+	//çŠ¶æ€æ¥å£
 public:
-	//ÊÇ·ñÁ¬½Ó´íÎó
+	//æ˜¯å¦è¿æ¥é”™è¯¯
 	virtual bool  IsConnectError();
-	//ÊÇ·ñ´ò¿ª
+	//æ˜¯å¦æ‰“å¼€
 	virtual bool  IsRecordsetOpened();
 
-	//¼ÇÂ¼¼¯½Ó¿Ú
+	//è®°å½•é›†æ¥å£
 public:
-	//ÍùÏÂÒÆ¶¯
+	//å¾€ä¸‹ç§»åŠ¨
 	virtual void  MoveToNext();
-	//ÒÆµ½¿ªÍ·
+	//ç§»åˆ°å¼€å¤´
 	virtual void  MoveToFirst();
-	//ÊÇ·ñ½áÊø
+	//æ˜¯å¦ç»“æŸ
 	virtual bool  IsRecordsetEnd();
-	//»ñÈ¡ÊıÄ¿
+	//è·å–æ•°ç›®
 	virtual long  GetRecordCount();
-	//»ñÈ¡´óĞ¡
+	//è·å–å¤§å°
 	virtual long  GetActualSize(LPCTSTR pszParamName);
-	//°ó¶¨¶ÔÏó
+	//ç»‘å®šå¯¹è±¡
 	virtual VOID  BindToRecordset(CADORecordBinding * pBind);
-	//»ñÈ¡Êı¾İ
+	//è·å–æ•°æ®
 	virtual VOID  GetRecordsetValue(LPCTSTR pszItem, CDBVarValue & DBVarValue);
-	//×Ö¶Î½Ó¿Ú
+	//å­—æ®µæ¥å£
 public:
-	//»ñÈ¡²ÎÊı
+	//è·å–å‚æ•°
 	virtual bool  GetFieldValue(LPCTSTR lpFieldName, BYTE & bValue);
-	//»ñÈ¡²ÎÊı
+	//è·å–å‚æ•°
 	virtual bool  GetFieldValue(LPCTSTR lpFieldName, WORD & wValue);
-	//»ñÈ¡²ÎÊı
+	//è·å–å‚æ•°
 	virtual bool  GetFieldValue(LPCTSTR lpFieldName, INT & nValue);
-	//»ñÈ¡²ÎÊı
+	//è·å–å‚æ•°
 	virtual bool  GetFieldValue(LPCTSTR lpFieldName, LONG & lValue);
-	//»ñÈ¡²ÎÊı
+	//è·å–å‚æ•°
 	virtual bool  GetFieldValue(LPCTSTR lpFieldName, DWORD & ulValue);
-	//»ñÈ¡²ÎÊı
+	//è·å–å‚æ•°
 	virtual bool  GetFieldValue(LPCTSTR lpFieldName, UINT & ulValue);
-	//»ñÈ¡²ÎÊı
+	//è·å–å‚æ•°
 	virtual bool  GetFieldValue(LPCTSTR lpFieldName, DOUBLE & dbValue);
-	//»ñÈ¡²ÎÊı
+	//è·å–å‚æ•°
 	virtual bool  GetFieldValue(LPCTSTR lpFieldName, __int64 & llValue);
-	//»ñÈ¡²ÎÊı
+	//è·å–å‚æ•°
 	virtual bool  GetFieldValue(LPCTSTR lpFieldName, TCHAR szBuffer[], UINT uSize);
-	//»ñÈ¡²ÎÊı
+	//è·å–å‚æ•°
 	virtual bool  GetFieldValue(LPCTSTR lpFieldName, COleDateTime & Time);
-	//»ñÈ¡²ÎÊı
+	//è·å–å‚æ•°
 	virtual bool  GetFieldValue(LPCTSTR lpFieldName, bool & bValue);
 
-	//ÃüÁî¶ÔÏó½Ó¿Ú
+	//å‘½ä»¤å¯¹è±¡æ¥å£
 public:
-	//²åÈë²ÎÊı
+	//æ’å…¥å‚æ•°
 	virtual void  AddParameter(LPCTSTR pszName, DataTypeEnum Type, ParameterDirectionEnum Direction, LONG lSize, CDBVarValue & DBVarValue);
-	//É¾³ı²ÎÊı
+	//åˆ é™¤å‚æ•°
 	virtual void  ClearParameters();
-	//»ñµÃ²ÎÊı
+	//è·å¾—å‚æ•°
 	virtual void  GetParameter(LPCTSTR pszParamName, CDBVarValue & DBVarValue);
-	//»ñÈ¡·µ»ØÊıÖµ
+	//è·å–è¿”å›æ•°å€¼
 	virtual long  GetReturnValue();
 
-	//Ö´ĞĞ½Ó¿Ú
+	//æ‰§è¡Œæ¥å£
 public:
-	//Ö´ĞĞÓï¾ä
+	//æ‰§è¡Œè¯­å¥
 	virtual VOID  ExecuteProcess(LPCTSTR pszSPName, bool bRecordset);
-	//Ö´ĞĞÃüÁî
+	//æ‰§è¡Œå‘½ä»¤
 	virtual VOID  ExecuteSentence(LPCTSTR pszCommand, bool bRecordset);
 
-	//ÄÚ²¿º¯Êı
+	//å†…éƒ¨å‡½æ•°
 private:
-	//»ñÈ¡´íÎó
+	//è·å–é”™è¯¯
 	LPCTSTR GetComErrorDescribe(CComError & ComError);
-	//ÉèÖÃ´íÎó
+	//è®¾ç½®é”™è¯¯
 	void SetErrorInfo(enSQLException enErrorType, LPCTSTR pszDescribe);
 };
 
 //////////////////////////////////////////////////////////////////////////
 
-//Êı¾İ¿â¹ÜÀíÀà
+//æ•°æ®åº“ç®¡ç†ç±»
 class CDataBaseEngine : public IDataBaseEngine, public IQueueServiceSink
 {
-	//ÄÚºË±äÁ¿
+	//å†…æ ¸å˜é‡
 protected:
-	bool							m_bService;							//ÔËĞĞ±êÖ¾
-	CQueueServiceEvent				m_QueueServiceEvent;				//¶ÓÁĞ¶ÔÏó
+	bool							m_bService;							//è¿è¡Œæ ‡å¿—
+	CQueueServiceEvent				m_QueueServiceEvent;				//é˜Ÿåˆ—å¯¹è±¡
 
-	vector<IDataBaseEngineSink *>   m_pIDataBaseEngineSinks;			//Í¨Öª¹³×Ó
+	vector<IDataBaseEngineSink *>   m_pIDataBaseEngineSinks;			//é€šçŸ¥é’©å­
 
-	//º¯Êı¶¨Òå
+	//å‡½æ•°å®šä¹‰
 public:
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	CDataBaseEngine(void);
-	//Îö¹¹º¯Êı
+	//ææ„å‡½æ•°
 	virtual ~CDataBaseEngine(void);
 
-	//»ù´¡½Ó¿Ú
+	//åŸºç¡€æ¥å£
 public:
-	//ÊÍ·Å¶ÔÏó
+	//é‡Šæ”¾å¯¹è±¡
 	virtual VOID  Release()
 	{
 		if (IsValid()) delete this;
 		return /*true*/;
 	}
-	//ÊÇ·ñÓĞĞ§
+	//æ˜¯å¦æœ‰æ•ˆ
 	virtual bool  IsValid()
 	{
 		return AfxIsValidAddress(this, sizeof(CDataBaseEngine)) ? true : false;
 	}
-	//½Ó¿Ú²éÑ¯
+	//æ¥å£æŸ¥è¯¢
 	virtual void *  QueryInterface(const IID & Guid, DWORD dwQueryVer);
 
-	//·şÎñ½Ó¿Ú
+	//æœåŠ¡æ¥å£
 public:
-	//Æô¶¯·şÎñ
+	//å¯åŠ¨æœåŠ¡
 	virtual bool  StartService();
-	//Í£Ö¹·şÎñ
+	//åœæ­¢æœåŠ¡
 	virtual bool  ConcludeService();
 
-	//ÅäÖÃ½Ó¿Ú
+	//é…ç½®æ¥å£
 public:
 	virtual bool  GetBurthenInfo(tagBurthenInfo & BurthenInfo);
 
-	//ÅäÖÃÄ£¿é
+	//é…ç½®æ¨¡å—
 	virtual bool  SetDataBaseEngineSink(IUnknownEx * pIUnknownEx);
-	//ÅäÖÃÄ£¿é
+	//é…ç½®æ¨¡å—
 	virtual bool  SetDataBaseEngineSink(IUnknownEx * pIUnknownEx[], WORD wSinkCount);
 
-	//¶ÓÁĞ½Ó¿Ú
+	//é˜Ÿåˆ—æ¥å£
 public:
-	//¶ÓÁĞ½Ó¿Ú
+	//é˜Ÿåˆ—æ¥å£
 	virtual void  OnQueueServiceSink(WORD wIdentifier, void * pBuffer, WORD wDataSize);
 
-	//¿ØÖÆÊÂ¼ş
+	//æ§åˆ¶äº‹ä»¶
 public:
-	//Ê±¼äÊÂ¼ş
+	//æ—¶é—´äº‹ä»¶
 	virtual bool  PostDataBaseTimer(DWORD dwTimerID, WPARAM dwBindParameter);
-	//¿ØÖÆÊÂ¼ş
+	//æ§åˆ¶äº‹ä»¶
 	virtual bool  PostDataBaseControl(WORD wControlID, VOID * pData, WORD wDataSize);
-	//ÇëÇóÊÂ¼ş
+	//è¯·æ±‚äº‹ä»¶
 	virtual bool  PostDataBaseRequest(WORD wRequestID, DWORD dwContextID, VOID * pData, WORD wDataSize);
-	//ÑÓÆÚÇëÇó
+	//å»¶æœŸè¯·æ±‚
 	virtual bool  DeferDataBaseRequest(WORD wRequestID, DWORD dwContextID, VOID * pData, WORD wDataSize);
 };
 
