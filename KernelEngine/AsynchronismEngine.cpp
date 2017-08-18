@@ -7,7 +7,7 @@
 #include "AsynchronismEngine.h"
 
 //////////////////////////////////////////////////////////////////////////
-//宏定义
+//宏定义 ccc
 
 #define WM_ASYN_REQUEST					WM_USER+10						//异步请求
 
