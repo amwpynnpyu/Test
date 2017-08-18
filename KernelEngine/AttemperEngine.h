@@ -7,7 +7,7 @@
 
 #pragma once
 
-//组件头文件
+//组件头文件...
 
 #include "KernelEngineHead.h"
 #include "QueueService.h"
